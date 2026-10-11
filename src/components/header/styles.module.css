@@ -1,0 +1,319 @@
+.header {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 78px;
+  border-bottom: 1px solid rgb(217 217 212 / 75%);
+  background: rgb(250 249 245 / 96%);
+  backdrop-filter: blur(14px);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+
+  &.hidden {
+    transform: translateY(-105%);
+  }
+
+  .inner {
+    display: flex;
+    width: min(100% - 64px, 1420px);
+    height: 100%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex: 0 0 auto;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+
+  .brandMark {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 11px;
+    color: var(--color-accent);
+    background: var(--color-ink);
+    font-size: 20px;
+  }
+
+  .brandName {
+    color: var(--color-ink);
+    font-size: 22px;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+
+    span {
+      color: var(--color-primary);
+    }
+  }
+
+  .brandDivider {
+    width: 1px;
+    height: 25px;
+    margin: 0 4px;
+    background: var(--color-border);
+  }
+
+  .brandLabel {
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .nav {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 34px;
+  }
+
+  .navLink {
+    position: relative;
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    gap: 9px;
+    color: #657079;
+    font-size: 15px;
+    font-weight: 650;
+    text-decoration: none;
+
+    svg {
+      font-size: 17px;
+    }
+
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(90deg, var(--color-primary), #e7c579);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms ease;
+    }
+
+    &:hover,
+    &:focus-visible,
+    &.active {
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+
+    &:hover::after,
+    &:focus-visible::after,
+    &.active::after {
+      transform: scaleX(1);
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .repository,
+  .createButton,
+  .mobileCreate,
+  .menuButton {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 650;
+    text-decoration: none;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .repository {
+    padding: 0 12px;
+    border-color: var(--color-border);
+    color: var(--color-text);
+    background: white;
+
+    svg {
+      font-size: 16px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--color-primary);
+      box-shadow: 0 4px 13px rgb(23 36 46 / 10%);
+      text-decoration: none;
+    }
+  }
+
+  .createButton,
+  .mobileCreate {
+    padding: 0 14px;
+    border-color: var(--color-ink);
+    color: #fff;
+    background: var(--color-ink);
+
+    svg {
+      font-size: 17px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--color-primary-dark);
+      background: #243a47;
+      box-shadow: 0 5px 15px rgb(23 36 46 / 16%);
+    }
+  }
+
+  .mobileCreate,
+  .menuButton {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .inner {
+      width: min(100% - 36px, 1420px);
+      gap: 18px;
+    }
+
+    .nav {
+      gap: 20px;
+    }
+
+    .brandLabel,
+    .brandDivider {
+      display: none;
+    }
+  }
+
+  @media (max-width: 700px) {
+    height: 70px;
+
+    .nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 18px;
+      left: 18px;
+      display: none;
+      height: auto;
+      padding: 12px;
+      align-items: stretch;
+      flex-direction: column;
+      gap: 2px;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-surface);
+      box-shadow: var(--shadow-card);
+
+      &.open {
+        display: flex;
+      }
+    }
+
+    .navLink {
+      height: 48px;
+      padding: 0 10px;
+      border-radius: 7px;
+
+      &::after {
+        right: auto;
+        bottom: 6px;
+        left: 10px;
+        width: 34px;
+        height: 2px;
+        border-radius: 2px;
+      }
+
+      &:hover,
+      &:focus-visible,
+      &.active {
+        background: #f5f2eb;
+      }
+    }
+
+    .mobileCreate {
+      display: inline-flex;
+      min-height: 46px;
+      margin-top: 7px;
+    }
+
+    .menuButton {
+      display: inline-flex;
+      width: 42px;
+      min-height: 42px;
+      border-color: var(--color-border);
+      color: var(--color-ink);
+      background: white;
+      font-size: 18px;
+
+      &:hover,
+      &:focus-visible {
+        border-color: var(--color-primary);
+        box-shadow: 0 4px 13px rgb(23 36 46 / 10%);
+      }
+    }
+  }
+
+  @media (max-width: 470px) {
+    .inner {
+      width: calc(100% - 24px);
+      gap: 10px;
+    }
+
+    .brand {
+      gap: 7px;
+    }
+
+    .brandMark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      font-size: 18px;
+    }
+
+    .brandName {
+      font-size: 20px;
+    }
+
+    .actions {
+      gap: 6px;
+    }
+
+    .repository,
+    .createButton {
+      width: 39px;
+      min-height: 39px;
+      padding: 0;
+      font-size: 18px;
+
+      span {
+        display: none;
+      }
+    }
+
+    .menuButton {
+      width: 39px;
+      min-height: 39px;
+    }
+  }
+}
