@@ -1,0 +1,110 @@
+.backdrop {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  display: grid;
+  padding: 22px;
+  place-items: center;
+  background: rgb(18 29 37 / 58%);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 140ms ease both;
+
+  .dialog {
+    display: flex;
+    width: min(100%, 560px);
+    max-height: min(88vh, 860px);
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 72%);
+    border-radius: 16px;
+    background: var(--color-surface);
+    box-shadow: 0 24px 72px rgb(10 20 26 / 34%);
+    animation: fadeIn 160ms ease both;
+
+    &.wide {
+      width: min(100%, 760px);
+    }
+
+    &.narrow {
+      width: min(100%, 450px);
+    }
+  }
+
+  .header {
+    display: flex;
+    padding: 22px 24px 18px;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    border-bottom: 1px solid var(--color-border);
+
+    h2 {
+      color: var(--color-ink);
+      font-size: 20px;
+      font-weight: 720;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      margin-top: 5px;
+      color: var(--color-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+  }
+
+  .closeButton {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: #5c6870;
+    background: #fff;
+    font-size: 18px;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      color 180ms ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--color-primary);
+      color: var(--color-ink);
+      box-shadow: 0 4px 12px rgb(23 36 46 / 10%);
+    }
+  }
+
+  .content {
+    overflow: auto;
+    padding: 22px 24px 24px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 12px;
+
+    .dialog {
+      max-height: 92vh;
+      border-radius: 14px;
+    }
+
+    .header {
+      padding: 18px 18px 15px;
+    }
+
+    .content {
+      padding: 18px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
