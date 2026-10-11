@@ -6,6 +6,10 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 
 OverlayScrollbars(document.body, {
+    overflow: {
+        x: "hidden",
+        y: "scroll",
+    },
     scrollbars: {
         theme: "os-theme-proof",
         autoHide: "move",
