@@ -1,0 +1,57 @@
+.loadingState {
+    display: grid;
+    min-height: clamp(220px, 48vh, 480px);
+    place-items: center;
+
+    .spinner {
+        position: relative;
+        width: 54px;
+        aspect-ratio: 1;
+        border: 3px solid var(--color-border);
+        border-top-color: var(--color-primary);
+        border-right-color: var(--color-primary-dark);
+        border-radius: 50%;
+        animation: spin 850ms linear infinite;
+        filter: drop-shadow(0 5px 12px rgb(23 36 46 / 14%));
+
+        &::before {
+            position: absolute;
+            inset: 8px;
+            border: 2px solid transparent;
+            border-bottom-color: var(--color-accent);
+            border-left-color: var(--color-accent);
+            border-radius: 50%;
+            animation: spinReverse 1100ms linear infinite;
+            content: "";
+        }
+
+        &::after {
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            background: var(--color-ink);
+            box-shadow: 0 0 0 4px var(--color-surface-muted);
+            content: "";
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            animation-duration: 1800ms;
+
+            &::before {
+                animation-duration: 2200ms;
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinReverse {
+    to {
+        transform: rotate(-360deg);
+    }
+}
