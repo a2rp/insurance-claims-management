@@ -265,10 +265,10 @@ const App = () => {
         confirmLabel: "Remove claim",
         danger: true,
         onConfirm: () => {
+          navigate("/");
           setClaims((current) => current.filter((item) => item.id !== claim.id));
           closeConfirmation();
           showToast("Claim removed", `${claim.id} was removed from this demo workspace.`, "info");
-          navigate("/");
         },
       });
     },
