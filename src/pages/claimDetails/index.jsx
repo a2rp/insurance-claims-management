@@ -12,7 +12,7 @@ import {
   FiShield,
   FiTrash2,
 } from "react-icons/fi";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { formatCurrency, formatDate } from "../../utils/format";
 import styles from "./styles.module.css";
 
@@ -25,7 +25,20 @@ const ClaimDetailsPage = ({ claims, updateClaim, addNote, requestDecision, reque
   const [reserveDrafts, setReserveDrafts] = useState({});
   const [reserveErrors, setReserveErrors] = useState({});
 
-  if (!claim) return <Navigate replace to="/not-found" />;
+  if (!claim) {
+    return (
+      <section className={styles.page}>
+        <div className={styles.content}>
+          <div className={styles.missingFile}>
+            <FiFileText aria-hidden="true" />
+            <h1>Claim file unavailable</h1>
+            <p>This file may have been removed or its claim ID may be incorrect.</p>
+            <Link className={styles.backLink} to="/"><FiArrowLeft aria-hidden="true" /> Back to claims queue</Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const reserveValue = reserveDrafts[claim.id] ?? String(claim.reserve);
   const reserveError = reserveErrors[claim.id] ?? "";
