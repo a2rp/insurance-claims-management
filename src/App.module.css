@@ -1,0 +1,107 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--color-background);
+
+  .main {
+    width: 100%;
+    min-height: calc(100vh - 164px);
+    flex: 1;
+    padding-top: 78px;
+  }
+
+  .skipLink {
+    position: fixed;
+    z-index: 100;
+    top: 9px;
+    left: 10px;
+    padding: 9px 13px;
+    border: 1px solid var(--color-ink);
+    border-radius: 7px;
+    color: white;
+    background: var(--color-ink);
+    font-size: 14px;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease;
+
+    &:focus-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .confirmation {
+    .confirmActions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .cancelButton,
+    .confirmButton {
+      min-height: 43px;
+      padding: 0 15px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      color: var(--color-text);
+      background: white;
+      font-size: 14px;
+      font-weight: 650;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+
+      &:hover,
+      &:focus-visible {
+        border-color: var(--color-primary);
+        box-shadow: 0 4px 12px rgb(23 36 46 / 10%);
+      }
+    }
+
+    .confirmButton {
+      border-color: var(--color-ink);
+      color: white;
+      background: var(--color-ink);
+
+      &:hover,
+      &:focus-visible {
+        border-color: #263c48;
+        background: #263c48;
+      }
+    }
+
+    .dangerButton {
+      border-color: var(--color-danger);
+      background: var(--color-danger);
+
+      &:hover,
+      &:focus-visible {
+        border-color: #8f3429;
+        background: #8f3429;
+      }
+    }
+  }
+
+  @media (max-width: 700px) {
+    .main {
+      padding-top: 70px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .confirmation {
+      .confirmActions {
+        flex-direction: column-reverse;
+      }
+
+      .cancelButton,
+      .confirmButton {
+        width: 100%;
+      }
+    }
+  }
+}
