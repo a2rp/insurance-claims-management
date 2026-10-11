@@ -122,7 +122,7 @@ const PaymentsPage = ({ claims, requestPaymentAction, showToast }) => {
           {visibleClaims.length ? (
             <div className={styles.tableWrap}>
               <table>
-                <thead><tr><th scope="col">Claim</th><th scope="col">Settlement</th><th scope="col">Approved on</th><th scope="col">Payment status</th><th scope="col">Action</th></tr></thead>
+                <thead><tr><th scope="col">Claim</th><th scope="col">Settlement</th><th scope="col">Updated</th><th scope="col">Payment status</th><th scope="col">Action</th></tr></thead>
                 <tbody>
                   {visibleClaims.map((claim) => (
                     <tr key={claim.id}>
