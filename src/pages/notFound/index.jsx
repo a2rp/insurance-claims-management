@@ -1,4 +1,4 @@
-import { FiArrowLeft, FiFileQuestion } from "react-icons/fi";
+import { FiArrowLeft, FiFileText } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
 
@@ -8,7 +8,7 @@ const NotFoundPage = () => {
   return (
     <section className={styles.page}>
       <div className={styles.card}>
-        <span className={styles.icon}><FiFileQuestion aria-hidden="true" /></span>
+        <span className={styles.icon}><FiFileText aria-hidden="true" /></span>
         <p className={styles.code}>404 · FILE NOT FOUND</p>
         <h1>This page is outside the claim file.</h1>
         <p className={styles.message}>
