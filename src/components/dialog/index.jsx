@@ -25,10 +25,17 @@ const Dialog = ({ open, onClose, title, description, children, size = "medium" }
       const focusable = dialogRef.current?.querySelectorAll(
         'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
       );
-      if (!focusable?.length) return;
+      if (!focusable?.length) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
+      if (!dialogRef.current?.contains(document.activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last.focus();
       } else if (!event.shiftKey && document.activeElement === last) {
@@ -40,7 +47,11 @@ const Dialog = ({ open, onClose, title, description, children, size = "medium" }
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      if (previousFocus instanceof HTMLElement) previousFocus.focus();
+      const returnFocus =
+        previousFocus instanceof HTMLElement && previousFocus.isConnected
+          ? previousFocus
+          : document.getElementById("main-content");
+      returnFocus?.focus();
     };
   }, [open, onClose]);
 
@@ -60,6 +71,7 @@ const Dialog = ({ open, onClose, title, description, children, size = "medium" }
         className={`${styles.dialog} ${styles[size] || ""}`}
         ref={dialogRef}
         role="dialog"
+        tabIndex={-1}
       >
         <header className={styles.header}>
           <div>

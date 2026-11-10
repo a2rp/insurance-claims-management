@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiArrowLeft, FiCheck, FiInfo, FiShield } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { formatCurrency, getInitials } from "../../utils/format";
+import { formatCurrency, getInitials, getLocalDate } from "../../utils/format";
 import styles from "./styles.module.css";
 
 const initialValues = {
@@ -21,6 +21,7 @@ const initialValues = {
 const NewClaimPage = ({ createClaim, showToast }) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
+  const currentDate = getLocalDate();
 
   const updateField = (event) => {
     const { name, value } = event.target;
@@ -33,7 +34,7 @@ const NewClaimPage = ({ createClaim, showToast }) => {
     ["claimant", "policy", "vehicle", "location", "incidentDate"].forEach((field) => {
       if (!values[field].trim()) nextErrors[field] = "This field is required.";
     });
-    if (values.incidentDate && values.incidentDate > new Date().toISOString().slice(0, 10)) {
+    if (values.incidentDate && values.incidentDate > currentDate) {
       nextErrors.incidentDate = "The incident date cannot be in the future.";
     }
     if (!Number(values.estimate) || Number(values.estimate) < 1) {
@@ -133,7 +134,7 @@ const NewClaimPage = ({ createClaim, showToast }) => {
                 </label>
                 <label className={styles.field}>
                   <span>Incident date <b>*</b></span>
-                  <input aria-invalid={Boolean(errors.incidentDate)} max={new Date().toISOString().slice(0, 10)} name="incidentDate" onChange={updateField} type="date" value={values.incidentDate} />
+                  <input aria-invalid={Boolean(errors.incidentDate)} max={currentDate} name="incidentDate" onChange={updateField} type="date" value={values.incidentDate} />
                   {errors.incidentDate && <small>{errors.incidentDate}</small>}
                 </label>
                 <label className={styles.field}>

@@ -8,14 +8,7 @@ import Header from "./components/header";
 import ScrollToTop from "./components/scrollToTop";
 import Toast from "./components/toast";
 import { seedClaims } from "./data/seed";
-import { formatCompactDate, formatCurrency } from "./utils/format";
-
-const getLocalDate = () => {
-  const now = new Date();
-  return new Date(now.getTime() - now.getTimezoneOffset() * 60000)
-    .toISOString()
-    .slice(0, 10);
-};
+import { formatCompactDate, formatCurrency, getLocalDate } from "./utils/format";
 
 const getEventTime = () =>
   new Intl.DateTimeFormat("en-US", {
@@ -85,7 +78,7 @@ const App = () => {
           ...claims.map((claim) => Number(claim.id.split("-").at(-1)) || 0),
         ) + 1;
       const now = new Date();
-      const claimId = `CL-26-${String(nextNumber).padStart(4, "0")}`;
+      const claimId = `CL-${String(now.getFullYear()).slice(-2)}-${String(nextNumber).padStart(4, "0")}`;
       const claim = {
         ...values,
         id: claimId,
@@ -303,7 +296,7 @@ const App = () => {
     <div className={styles.app}>
       <a className={styles.skipLink} href="#main-content">Skip to content</a>
       <Header onNewClaim={() => navigate("/new-claim")} />
-      <main className={styles.main} id="main-content">
+      <main className={styles.main} id="main-content" tabIndex={-1}>
         <ScrollToTop />
         <AppRoutes app={app} />
       </main>

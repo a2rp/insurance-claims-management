@@ -34,8 +34,18 @@ export const getInitials = (name) =>
     .join("")
     .toUpperCase();
 
-export const toCsvValue = (value) =>
-  `"${String(value ?? "").replaceAll('"', '""')}"`;
+export const getLocalDate = () => {
+  const now = new Date();
+  return new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, 10);
+};
+
+export const toCsvValue = (value) => {
+  const text = String(value ?? "");
+  const safe = /^[\u0000-\u0020]*[=+\-@]/.test(text) ? `'${text}` : text;
+  return `"${safe.replaceAll('"', '""')}"`;
+};
 
 export const downloadCsv = (filename, rows, columns) => {
   const csv = [
@@ -44,10 +54,12 @@ export const downloadCsv = (filename, rows, columns) => {
       columns.map((column) => toCsvValue(row[column.key])).join(","),
     ),
   ].join("\r\n");
-  const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+  const url = URL.createObjectURL(
+    new Blob([csv], { type: "text/csv;charset=utf-8" }),
+  );
   const link = document.createElement("a");
   link.href = url;
   link.download = filename;
   link.click();
-  URL.revokeObjectURL(url);
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 };
